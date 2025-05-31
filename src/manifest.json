@@ -30,9 +30,7 @@
 	},
 	"content_scripts": [
 		{
-			"matches": [
-				"<all_urls>"
-			],
+			"matches": ["https://*.google.com/*", "https://*.github.com/*"],
 			"run_at": "document_end",
 			"js": ["focus.js", "jquery.js", "content.js", "virtualized-list.min.js"],
 			"css": ["content.css"]
@@ -40,14 +38,21 @@
 	],
 	"web_accessible_resources": [
 		{
-			"resources":  ["content.html", "newtab.html", "assets/*", "popup.css", "popup.js"],
-			"matches": ["<all_urls>"]
+			"resources": [
+				"content.html",
+				"newtab.html",
+				"assets/*",
+				"popup.css",
+				"popup.js"
+			],
+			"matches": ["https://*.google.com/*", "https://*.github.com/*"]
 		}
 	],
-	"permissions": [
-		"tabs", "activeTab", "bookmarks", "browsingData", "history", "scripting", "search"
-	],
-	"host_permissions": [
-		"https://www.googleapis.com/*", "https://gstatic.com/*", "*://*/*"
-	]
+	"permissions": ["tabs", "activeTab"],
+	"optional_permissions": ["history", "bookmarks", "browsingData", "search"],
+	"host_permissions": ["https://www.googleapis.com/*", "https://gstatic.com/*"],
+	"content_security_policy": {
+		"extension_pages": "script-src 'self'; object-src 'self'; base-uri 'self';"
+	}
 }
+
